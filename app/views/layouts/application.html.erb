@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MagicEstimation</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body>
+<header>
+  <%= render 'layouts/navigation' %>
+</header>
+
+<div id="main" role="main">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <footer>
+  </footer>
+</div>
+</body>
+</html>

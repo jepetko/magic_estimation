@@ -1,0 +1,8 @@
+<% @backlogs.each do |backlog| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><%= backlog.name %></div>
+      <div class="panel-body">
+        <%= backlog.description %>
+      </div>
+    </div>
+<% end %>
