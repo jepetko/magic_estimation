@@ -8,9 +8,40 @@
         </li>
       </ul>
 
-      <div class="nav-item">
-        <%= link_to 'Register', register_path, class: 'btn btn-default' %>
-      </div>
+      <% if !logged_in? %>
+          <div class="nav-item">
+            <%= link_to 'Register', register_path, class: 'btn btn-primary btn-small' %>
+          </div>
+          <div class="nav-item">
+            <%= link_to 'Login', login_path, class: 'btn btn-success btn-small' %>
+          </div>
+      <% else %>
+          <div class="btn-group nav-item">
+            <%= link_to '#', class: 'btn btn-small dropdown-toggle', 'data-toggle' => 'dropdown' do %>
+                Backlogs
+            <% end %>
+            <ul class="dropdown-menu">
+              <% recent_backlogs.each do |backlog| %>
+                <li>
+                  <%= link_to backlog_path(backlog) do %>
+                      <i class="icon-leaf"></i>
+                      <%= backlog.name %>
+                  <% end %>
+                </li>
+              <% end %>
+              <li class="divider"></li>
+              <li>
+                <%= link_to new_backlog_path do %>
+                    <i class="icon-plus"></i>
+                    Backlog
+                <% end %>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-item">
+            <%= link_to 'Logout', logout_path, class: 'btn btn-danger btn-small' %>
+          </div>
+      <% end %>
 
     </div>
 

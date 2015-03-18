@@ -54,11 +54,12 @@ MagicEstimation::Application.routes.draw do
   #     resources :products
   #   end
 
-  root 'backlogs#index'
+  root to: 'backlogs#index'
   get '/register', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resource :users, only: [:new, :create]
+  resources :users, only: [:new, :create]
+  resources :backlogs, only: [:index, :new, :show]
 end
