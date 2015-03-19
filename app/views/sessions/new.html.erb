@@ -1,13 +1,17 @@
 <div class="well">
     <%= form_tag '/login', method: :post do %>
-        <div class="control-group">
+        <div class="form-group">
             <%= label_tag :login %>
-            <%= text_field_tag :username %>
+            <br/>
+            <%= text_field_tag :username, nil, class: 'form-control', placeholder: 'Your username' %>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <%= label_tag :password %>
-            <%= password_field_tag :password %>
+            <br/>
+            <%= password_field_tag :password, nil, class: 'form-control', placeholder: 'Your password' %>
         </div>
-        <%= submit_tag 'Login', class: 'btn btn-success' %>
+        <div class="form-group">
+            <%= submit_tag 'Login', class: 'btn btn-success' %>
+        </div>
     <% end %>
 </div>
