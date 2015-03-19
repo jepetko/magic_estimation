@@ -39,6 +39,13 @@ class BacklogsController < ApplicationController
     end
   end
 
+  def destroy
+    if Backlog.destroy(params[:id])
+      flash[:notice] = 'Backlog has been destroyed.'
+      redirect_to backlogs_path
+    end
+  end
+
   private
 
   def backlog_params
