@@ -17,8 +17,25 @@ class BacklogsController < ApplicationController
       flash[:notice] = "Backlog #{@backlog.name} saved."
       redirect_to backlogs_path
     else
-      flash[:error] = 'Backlog could not be saved.'
       render :new
+    end
+  end
+
+  def show
+    @backlog = Backlog.find(params[:id])
+  end
+
+  def edit
+    @backlog = Backlog.find(params[:id])
+  end
+
+  def update
+    @backlog = Backlog.find(params[:id])
+    if @backlog.update(backlog_params)
+      flash[:notice] = 'Backlog has been updated successfully.'
+      redirect_to backlog_path(@backlog)
+    else
+      render :edit
     end
   end
 

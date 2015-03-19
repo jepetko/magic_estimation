@@ -61,5 +61,5 @@ MagicEstimation::Application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   resources :users, only: [:new, :create]
-  resources :backlogs, only: [:index, :new, :show]
+  resources :backlogs
 end

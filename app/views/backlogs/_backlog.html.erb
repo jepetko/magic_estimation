@@ -1,0 +1,12 @@
+<% buttons ||= {} %>
+<div class="panel panel-default">
+  <div class="panel-heading"><%= backlog.name %></div>
+  <div class="panel-body">
+    <%= backlog.description %>
+  </div>
+  <div class="panel-footer">
+    <%= link_to 'Show', backlog_path(backlog), class: 'btn btn-default' if buttons[:show] %>
+    <%= link_to 'Edit', edit_backlog_path(backlog), class: 'btn btn-primary' if buttons[:edit] %>
+    <%= link_to 'Destroy', backlog_path(backlog), method: :delete, class: 'btn btn-danger' if buttons[:destroy] %>
+  </div>
+</div>
