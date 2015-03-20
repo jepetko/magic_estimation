@@ -4,9 +4,11 @@
   <div class="panel-body">
     <%= backlog.description %>
   </div>
-  <div class="panel-footer">
-    <%= link_to 'Show', backlog_path(backlog), class: 'btn btn-default' if buttons[:show] %>
-    <%= link_to 'Edit', edit_backlog_path(backlog), class: 'btn btn-primary' if buttons[:edit] %>
-    <%= link_to 'Destroy', backlog_path(backlog), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' if buttons[:destroy] %>
-  </div>
+  <% if logged_in? %>
+      <div class="panel-footer">
+        <%= link_to 'Show', backlog_path(backlog), class: 'btn btn-default' if buttons[:show] %>
+        <%= link_to 'Edit', edit_backlog_path(backlog), class: 'btn btn-primary' if buttons[:edit] %>
+        <%= link_to 'Destroy', backlog_path(backlog), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' if buttons[:destroy] %>
+      </div>
+  <% end %>
 </div>

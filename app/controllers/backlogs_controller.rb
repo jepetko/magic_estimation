@@ -1,5 +1,7 @@
 class BacklogsController < ApplicationController
 
+  before_action :set_backlog, only: [:show, :edit, :update]
+
   def index
     @backlogs = Backlog.all
     respond_to do |format|
@@ -22,15 +24,12 @@ class BacklogsController < ApplicationController
   end
 
   def show
-    @backlog = Backlog.find(params[:id])
   end
 
   def edit
-    @backlog = Backlog.find(params[:id])
   end
 
   def update
-    @backlog = Backlog.find(params[:id])
     if @backlog.update(backlog_params)
       flash[:notice] = 'Backlog has been updated successfully.'
       redirect_to backlog_path(@backlog)
@@ -47,6 +46,10 @@ class BacklogsController < ApplicationController
   end
 
   private
+
+  def set_backlog
+    @backlog = Backlog.find(params[:id])
+  end
 
   def backlog_params
     params.require(:backlog).permit(:name, :description)
