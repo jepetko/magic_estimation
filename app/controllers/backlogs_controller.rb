@@ -24,6 +24,12 @@ class BacklogsController < ApplicationController
   end
 
   def show
+    if params[:item]
+      @item = Item.find(params[:item])
+    else
+      @item = Item.new
+      @item.backlog = @backlog
+    end
   end
 
   def edit

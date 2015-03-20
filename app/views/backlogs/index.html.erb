@@ -1,3 +1,4 @@
+<%= render 'shared/title', title: 'All backlogs'%>
 <% @backlogs.each do |backlog| %>
     <%= render 'backlog', backlog: backlog, buttons: { show: true } %>
 <% end %>

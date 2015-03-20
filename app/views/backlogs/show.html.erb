@@ -1,1 +1,12 @@
+<%= render 'shared/title', title: "Showing <b>#{@backlog.name}</b> including <b>#{@backlog.items.count}</b> items".html_safe %>
 <%= render 'backlog', backlog: @backlog, buttons: {edit: true, destroy: true} %>
+<%= render 'items/form' %>
+<div class="container-fluid">
+    <% i = 0 %>
+    <% @backlog.items.each do |item| %>
+        <%= render inline: '<div class="row">'.html_safe if i%2 == 0 %>
+        <%= render 'items/item', item: item %>
+        <%= render inline: '</div>'.html_safe if i%2 == 1 %>
+        <% i += 1%>
+    <% end %>
+</div>

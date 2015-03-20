@@ -11,11 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317210134) do
+ActiveRecord::Schema.define(version: 20150320171813) do
 
   create_table "backlogs", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "type_id"
+    t.integer  "backlog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

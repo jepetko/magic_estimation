@@ -1,0 +1,21 @@
+<div class="well">
+  <h5 class="italic">
+    <% if !@item.new_record? %>
+        [ Editing item <%=@item.id%> ]
+        <%= link_to "Don't like to update this item. Let me create a new one.", backlog_path(@backlog), class: 'right-aligned' %>
+    <% else %>
+        [ New item ]
+    <% end %>
+  </h5>
+  <%= form_for  [@backlog, @item] do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Item name, e.g. "Send mail functionality"' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 10, class: 'form-control', placeholder: 'Short description, e.g. "If the user is logged in he might click a button to send a mail."' %>
+      </div>
+      <%= f.submit 'Save item', class: 'btn btn-primary' %>
+  <% end %>
+</div>
