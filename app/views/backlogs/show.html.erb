@@ -1,5 +1,5 @@
 <%= render 'shared/title', title: "Showing <b>#{@backlog.name}</b> including <b>#{@backlog.items.count}</b> items".html_safe %>
-<%= render 'backlog', backlog: @backlog, buttons: {edit: true, destroy: true} %>
+<%= render 'backlogs/backlog', backlog: @backlog, buttons: {edit: true, destroy: true} %>
 <%= render 'items/form' %>
 <div class="container-fluid">
     <% i = 0 %>

@@ -1,4 +1,5 @@
 <div class="well">
+  <%= render 'shared/errors', obj: @item %>
   <h5 class="italic">
     <% if !@item.new_record? %>
         [ Editing item <%=@item.id%> ]
