@@ -2,6 +2,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <%= item.name %>
+      <% if !item.initial_estimator.nil? %>
+        <span class="right-aligned italic">Initial estimator: <%=item.initial_estimator.name%></span>
+      <% end %>
     </div>
     <div class="panel-body">
       <%= item.description %>
