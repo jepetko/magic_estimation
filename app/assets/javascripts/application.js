@@ -19,18 +19,42 @@
 $(document).ready(function() {
     var assignUserModelUtils = (function() {
         return {
-            setAction: function(path) {
-                $('#assignToUserModal form').attr('action', path);
+            setHref: function(path) {
+                $('#assignToUserModal .btn-submit-user-to-assign').attr('href', path);
             },
             setItemName: function(name) {
                 $('#assignToUserModal #assignItemName').text(name);
+            },
+            getSelectedUserId: function() {
+                return $('#assignToUserModal select').val();
             }
         };
     })();
 
     $('.btn-assign-to-user').click(function() {
         var link = $(this);
-        assignUserModelUtils.setAction(link.attr('data-item-url'));
+        assignUserModelUtils.setHref(link.attr('data-item-url'));
         assignUserModelUtils.setItemName(link.attr('data-item-name'));
+        $('.btn-submit-user-to-assign').click(function() {
+            (function(anchor) {
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: anchor.href,
+                        data: {user_id: assignUserModelUtils.getSelectedUserId()},
+                        dataType: 'json'
+                    }
+                ).done(function(msg) {
+                    if(msg && msg.state) {
+                        if(msg.state === 'error') {
+                            alert(msg.messages.join(','));
+                        } else {
+                            location.reload();
+                        }
+                    }
+                });
+            })(this);
+           return false;
+        });
     });
 });
