@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :name, :password, presence: true
 
+  has_many :estimations
+  has_many :items, through: :estimations
+
   def admin?
     self.role == 'admin'
   end
