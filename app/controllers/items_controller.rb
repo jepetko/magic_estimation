@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "Item '#{@item.name}' saved successfully."
       redirect_to backlog_path(@backlog)
     else
-      flash[:error] = "Item '#{@item.name}' could not be created."
+      flash.now[:error] = "Item '#{@item.name}' could not be created."
       render 'backlogs/show'
     end
   end
@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "Item '#{@item.name}' updated successfully."
       redirect_to backlog_path(@item.backlog, item: params[:id])
     else
-      flash[:error] = "Item '#{@item.name}' could not be updated."
+      flash.now[:error] = "Item '#{@item.name}' could not be updated."
       render 'backlogs/show'
     end
   end
