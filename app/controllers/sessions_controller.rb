@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if !user.nil? && user.authenticate(params[:password])
       login_user(user)
     else
-      flash[:error] = 'Login credentials invalid.'
+      flash.now[:error] = 'Login credentials invalid.'
       render :new
     end
   end
