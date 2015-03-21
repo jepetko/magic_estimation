@@ -28,7 +28,26 @@ class ItemsController < ApplicationController
   end
 
   def assign
-    params
+    user = User.find(params[:user_id])
+    item = Item.find(params[:id])
+    estimation = Estimation.new(estimator: user, item: item)
+    if estimation.save
+      respond_to do |format|
+        format.json do
+          hash = { state: :ok }
+          hash[:obj] = estimation
+          render json: hash
+        end
+      end
+    else
+      respond_to do |format|
+        format.json do
+          hash = { state: :error }
+          hash[:messages] = estimation.errors.full_messages
+          render json: hash
+        end
+      end
+    end
   end
 
   private

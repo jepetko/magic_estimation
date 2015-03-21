@@ -10,7 +10,8 @@
         <div class="panel-footer">
           <%= link_to 'Edit', backlog_path(item.backlog, item: item.id), class: 'btn btn-primary' %>
           <% if current_user.admin? %>
-            <%= link_to '#', class: 'btn btn-primary btn-assign-to', 'data-toggle' => 'modal', 'data-target' => '#assignToUserModal' do %>
+            <%= link_to '#', class: 'btn btn-primary btn-assign-to-user', 'data-toggle' => 'modal', 'data-target' => '#assignToUserModal',
+                'data-item-name' => item.name, 'data-item-url' => assign_backlog_item_path(item.backlog, item) do %>
               <span class="glyphicon glyphicon-user"></span> Assign to...
             <% end %>
           <% end %>

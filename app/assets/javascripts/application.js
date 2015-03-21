@@ -15,3 +15,22 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+$(document).ready(function() {
+    var assignUserModelUtils = (function() {
+        return {
+            setAction: function(path) {
+                $('#assignToUserModal form').attr('action', path);
+            },
+            setItemName: function(name) {
+                $('#assignToUserModal #assignItemName').text(name);
+            }
+        };
+    })();
+
+    $('.btn-assign-to-user').click(function() {
+        var link = $(this);
+        assignUserModelUtils.setAction(link.attr('data-item-url'));
+        assignUserModelUtils.setItemName(link.attr('data-item-name'));
+    });
+});
