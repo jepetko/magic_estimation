@@ -6,8 +6,15 @@
     <div class="panel-body">
       <%= item.description %>
     </div>
-    <div class="panel-footer">
-      <%= link_to 'Edit', backlog_path(item.backlog, item: item.id), class: 'btn btn-primary' %>
-    </div>
+    <% if logged_in? %>
+        <div class="panel-footer">
+          <%= link_to 'Edit', backlog_path(item.backlog, item: item.id), class: 'btn btn-primary' %>
+          <% if current_user.admin? %>
+            <%= link_to '#', class: 'btn btn-primary btn-assign-to', 'data-toggle' => 'modal', 'data-target' => '#assignToUserModal' do %>
+              <span class="glyphicon glyphicon-user"></span> Assign to...
+            <% end %>
+          <% end %>
+        </div>
+    <% end %>
   </div>
 </div>

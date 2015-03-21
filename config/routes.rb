@@ -62,6 +62,10 @@ MagicEstimation::Application.routes.draw do
 
   resources :users, only: [:new, :create]
   resources :backlogs do
-    resources :items, only: [:create, :edit, :update, :destroy]
+    resources :items, only: [:create, :edit, :update, :destroy] do
+      member do
+        post :assign, to: :assign
+      end
+    end
   end
 end

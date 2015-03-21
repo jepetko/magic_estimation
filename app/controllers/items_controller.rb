@@ -27,6 +27,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def assign
+    params
+  end
+
   private
 
   def item_params
