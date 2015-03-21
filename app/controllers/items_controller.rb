@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   def create
     @backlog = Backlog.find(params[:backlog_id])
     @item = Item.new(item_params.merge(backlog: @backlog))
+    @item.creator = current_user
     if @item.save
       flash[:notice] = "Item '#{@item.name}' saved successfully."
       redirect_to backlog_path(@backlog)

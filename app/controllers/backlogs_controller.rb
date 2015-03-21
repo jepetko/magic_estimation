@@ -16,6 +16,7 @@ class BacklogsController < ApplicationController
 
   def create
     @backlog = Backlog.new(backlog_params)
+    @backlog.creator = current_user
     if @backlog.save
       flash[:notice] = "Backlog #{@backlog.name} saved."
       redirect_to backlogs_path

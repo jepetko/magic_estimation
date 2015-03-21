@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  validates :name, presence: true
-  validates :description, presence: true
+  validates :name, :description, :creator, presence: true
   belongs_to :backlog
+  belongs_to :creator, foreign_key: 'user_id', class_name: 'User'
 end
