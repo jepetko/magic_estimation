@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
 
+  before_action :require_user
+
   def create
     @backlog = Backlog.find(params[:backlog_id])
     @item = Item.new(item_params.merge(backlog: @backlog))

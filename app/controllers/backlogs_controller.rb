@@ -1,5 +1,6 @@
 class BacklogsController < ApplicationController
 
+  before_action :require_user, except: [:index]
   before_action :set_backlog, only: [:show, :edit, :update]
 
   def index
