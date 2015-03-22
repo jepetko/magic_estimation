@@ -24,14 +24,16 @@
               <dd><span class="label label-success"><%=Item.for_backlog_and_estimator_already_estimated(backlog,@user).size%></span></dd>
             </dl>
           </div>
-          <div class="panel-footer">
-            <% if backlog.items.any_to_be_estimated_initially?(backlog, @user)%>
-                <%= link_to 'Kick off the initial estimation', '#', class: 'btn btn-danger' %>
-            <% end %>
-            <% if backlog.items.any_to_be_estimated_next?(backlog, @user)%>
-                <%= link_to 'Estimate the backlog items as next', '#', class: 'btn btn-primary' %>
-            <% end %>
-          </div>
+          <% if current_user == @user %>
+              <div class="panel-footer">
+                <% if backlog.items.any_to_be_estimated_initially?(backlog, @user)%>
+                    <%= link_to 'Kick off the initial estimation', estimations_initial_backlog_path(backlog), class: 'btn btn-danger' %>
+                <% end %>
+                <% if backlog.items.any_to_be_estimated_next?(backlog, @user)%>
+                    <%= link_to 'Estimate the backlog items as next', estimations_next_backlog_path(backlog), class: 'btn btn-primary' %>
+                <% end %>
+              </div>
+          <% end %>
         </div>
 
       </div>

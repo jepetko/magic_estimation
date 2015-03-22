@@ -1,0 +1,19 @@
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="<%=@estimated%>" aria-valuemin="0" aria-valuemax="<%=@total%>" style="min-width: 2em;">
+    <%=@estimated%> items
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= @item.name %>
+  </div>
+  <div class="panel-body">
+    <%= @item.description %>
+  </div>
+  <div class="panel-footer">
+    <% [1, 2, 3, 5, 8].each do |val| %>
+        <%=radio_button_tag 'value', val, false, disabled: false%>
+    <% end %>
+  </div>
+</div>
