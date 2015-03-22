@@ -1,5 +1,7 @@
 class Estimation < ActiveRecord::Base
 
+  validates :user_id, presence: true
+
   belongs_to :item
   belongs_to :estimator, foreign_key: 'user_id', class_name: 'User'
 

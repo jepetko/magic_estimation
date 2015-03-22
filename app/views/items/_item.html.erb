@@ -3,7 +3,9 @@
     <div class="panel-heading">
       <%= item.name %>
       <% if !item.initial_estimator.nil? %>
-        <span class="right-aligned italic">Initial estimator: <%=item.initial_estimator.name%></span>
+        <span class="right-aligned">
+          Initial estimator: <%=link_to item.initial_estimator.name, user_path(item.initial_estimator)%>
+        </span>
       <% end %>
     </div>
     <div class="panel-body">
