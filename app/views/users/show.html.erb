@@ -1,0 +1,36 @@
+<div class="well">
+  <dl class="dl-horizontal">
+    <dt>Username:</dt>
+    <dd><%=@user.name%></dd>
+    <dt>Number of assigned items:</dt>
+    <dd><span class="label label-primary"><%=Estimation.total_for_estimator(@user).size%></span></dd>
+    <dt>Number of assigned items to be estimated initially:</dt>
+    <dd><span class="label label-primary"><%=Estimation.initial_for_estimator(@user).size%></span></dd>
+    <dt>Number of assigned items already estimated:</dt>
+    <dd><span class="label label-success"><%=Estimation.initial_for_estimator_already_estimated(@user).size%></span></dd>
+    <dt>Number of assigned items not estimated yet:</dt>
+    <dd><span class="label label-danger"><%=Estimation.initial_for_estimator_not_estimated_yet(@user).size%></span></dd>
+  </dl>
+</div>
+
+<% i = 0 %>
+<div class="container-fluid">
+  <% Backlog.backlogs_with_items_for_estimator(@user).each do |backlog| %>
+      <%= render inline: '<div class="row">' if i%2 == 0 %>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%=backlog.name%>
+          </div>
+          <div class="panel-footer">
+            <% if backlog.any_to_be_estimated_initially?(@user)%>
+                <%= link_to 'Kick off the estimation', '#', btn: 'btn btn-danger' %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+      <%= render inline: '</div>' if i%2 == 1 %>
+      <% i += 1 %>
+  <% end %>
+</div>
