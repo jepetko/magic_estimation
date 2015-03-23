@@ -42,6 +42,7 @@
             </li>
           </ul>
           <form class="navbar-form navbar-right">
+            User: <%= current_user.name %>
             <%= link_to 'Logout', logout_path, class: 'btn btn-danger btn-small' %>
           </form>
         <% end %>

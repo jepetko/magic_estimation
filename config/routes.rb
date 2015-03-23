@@ -71,6 +71,7 @@ MagicEstimation::Application.routes.draw do
     member do
       get '/estimations/initial', to: 'estimations#initial'
       get '/estimations/next', to: 'estimations#next'
+      post '/estimations/pass', to: 'estimations#pass'
     end
   end
 end
