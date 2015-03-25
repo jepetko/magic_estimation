@@ -16,14 +16,23 @@ class EstimationsController < ApplicationController
   end
 
   def next
-    params
+    backlog = Backlog.find(params[:id])
+    items = Item.for_backlog_and_estimator_to_be_estimated_next(backlog, current_user)
+    if !items.empty?
+      @item = items.first
+      @estimated = Item.for_backlog_and_estimator_already_estimated(backlog, current_user).size
+      @total = items.size + @estimated
+    else
+      flash[:error] = 'There are no items to be estimated as next.'
+      redirect_to root_path
+    end
   end
 
   def pass
     item = Item.find(params[:item_id])
-    estimation = Estimation.find_by(user_id: current_user.id, item: item) || Estimation.new(user_id: current_user.id, item: item)
+    estimation = Estimation.find_by(user_id: current_user.id, item: item) || Estimation.new(user_id: current_user.id, item: item,initial: false)
     estimation.value = params[:value]
-    if estimation.save
+    if estimation.save!
       flash.now[:notice] = "Your estimation of #{estimation.value} story points for item #{item.name} has been submitted."
     else
       flash.now[:error] = 'Something went wrong.'
