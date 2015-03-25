@@ -28,6 +28,19 @@ class EstimationsController < ApplicationController
     end
   end
 
+  def reestimate
+    backlog = Backlog.find(params[:id])
+    items = Item.for_backlog_to_be_reestimated(backlog)
+    if !items.empty?
+      @item = items.first
+      @estimated = 0
+      @total = items.size
+    else
+      flash[:error] = 'There are no items to be re-estimated'
+      redirect_to root_path
+    end
+  end
+
   def pass
     item = Item.find(params[:item_id])
     estimation = Estimation.find_by(user_id: current_user.id, item: item) || Estimation.new(user_id: current_user.id, item: item,initial: false)

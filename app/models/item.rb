@@ -42,6 +42,12 @@ class Item < ActiveRecord::Base
     for_backlog_and_another_estimator_already_estimated_initially(backlog,estimator).where.not(:'estimations.item_id' => already_estimated_as_next)
   }
 
+
+  scope :for_backlog_to_be_reestimated, ->(backlog) {
+    estimations = Estimation.select('items.id').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.item_id').having('count(estimations.id) >= 2').collect(&:id)
+    where(backlog: backlog).where(id: estimations)
+  }
+
   def initial_estimator
     # note: there should be only one estimator with initial = true for an item!
     self.the_initial_estimator ||= self.estimators.where('estimations.initial' => true).first
@@ -57,6 +63,14 @@ class Item < ActiveRecord::Base
 
   def self.any_to_be_estimated_next?(backlog,user,&block)
     size = Item.for_backlog_and_estimator_to_be_estimated_next(backlog,user).size
+    if block_given?
+      block.call(size)
+    end
+    size > 0
+  end
+
+  def self.any_to_be_possibly_reestimated?(backlog,&block)
+    size = Item.for_backlog_to_be_reestimated(backlog).size
     if block_given?
       block.call(size)
     end

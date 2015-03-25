@@ -26,13 +26,18 @@
           </div>
 
           <% if current_user == @user %>
-              <% size_items_to_be_estimated_initially = 0; size_items_to_be_estimated_next = 0%>
+              <% size_items_to_be_estimated_initially = 0;
+                 size_items_to_be_estimated_next = 0;
+                 size_items_to_be_possibly_reestimated = 0;%>
               <div class="panel-footer">
                 <% if backlog.items.any_to_be_estimated_initially?(backlog, @user) {|size| size_items_to_be_estimated_initially = size}%>
                     <%= link_to "Estimate initially (#{size_items_to_be_estimated_initially})", estimations_initial_backlog_path(backlog), class: 'btn btn-danger' %>
                 <% end %>
                 <% if backlog.items.any_to_be_estimated_next?(backlog, @user) {|size| size_items_to_be_estimated_next = size}%>
                     <%= link_to "Estimate as next (#{size_items_to_be_estimated_next})", estimations_next_backlog_path(backlog), class: 'btn btn-primary' %>
+                <% end %>
+                <% if backlog.items.any_to_be_possibly_reestimated?(backlog) {|size| size_items_to_be_possibly_reestimated = size}%>
+                    <%= link_to "Re-estimate (#{size_items_to_be_possibly_reestimated})", estimations_reestimate_backlog_path(backlog), class: 'btn btn-default' %>
                 <% end %>
               </div>
           <% end %>
