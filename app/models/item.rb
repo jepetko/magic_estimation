@@ -38,8 +38,8 @@ class Item < ActiveRecord::Base
     for_backlog_and_another_estimator(backlog,estimator).where.not(:'estimations.value' => nil).where(:'estimations.initial' => true)
   }
   scope :for_backlog_and_estimator_to_be_estimated_next, ->(backlog,estimator) {
-    already_estimated_as_next = where(backlog: backlog).joins(:estimations).where(user_id: estimator.id).where(:'estimations.initial' => false).where.not(:'estimations.value'=> nil).collect(&:item_id)
-    for_backlog_and_another_estimator_already_estimated_initially(backlog,estimator).where.not(:item_id => already_estimated_as_next)
+    already_estimated_as_next = where(backlog: backlog).joins(:estimations).where(:'estimations.user_id' => estimator.id).where(:'estimations.initial' => false).where.not(:'estimations.value'=> nil).collect(&:id)
+    for_backlog_and_another_estimator_already_estimated_initially(backlog,estimator).where.not(:'estimations.item_id' => already_estimated_as_next)
   }
 
   def initial_estimator
