@@ -19,6 +19,7 @@
             <%=label_tag point.value %>
         <% end %>
         <%= hidden_field_tag 'item_id', @item.id %>
+        <%= hidden_field_tag 'pos', params[:pos] || 1 %>
         <%= submit_tag 'Re-Estimate', class: 'btn btn-primary' %>
     <% end %>
   </div>

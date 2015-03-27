@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
 
   scope :for_backlog_to_be_reestimated, ->(backlog) {
     estimations = Estimation.select('items.id').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.item_id').having('count(estimations.id) >= 2').collect(&:id)
-    where(backlog: backlog).where(id: estimations)
+    where(backlog: backlog).where(id: estimations).order(id: :asc)
   }
 
   def initial_estimator
