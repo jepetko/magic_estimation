@@ -3,7 +3,9 @@
 <% if current_user.admin? %>
     <%= render 'items/form' %>
 <% end %>
+
 <div class="container-fluid">
+    <%= render 'shared/subtitle', title: 'Existing items' %>
     <% i = 0 %>
     <% @backlog.items.each do |item| %>
         <%= render inline: '<div class="row">'.html_safe if i%2 == 0 %>
