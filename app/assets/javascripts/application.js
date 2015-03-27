@@ -35,7 +35,7 @@ $(document).ready(function() {
         var link = $(this);
         assignUserModelUtils.setHref(link.attr('data-item-url'));
         assignUserModelUtils.setItemName(link.attr('data-item-name'));
-        $('.btn-submit-user-to-assign').click(function() {
+        $('.btn-submit-user-to-assign').off().click(function() {
             (function(anchor) {
                 $.ajax(
                     {
