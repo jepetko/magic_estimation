@@ -6,6 +6,7 @@ class Estimation < ActiveRecord::Base
   belongs_to :item
   belongs_to :estimator, foreign_key: 'user_id', class_name: 'User'
 
+  default_scope order(:updated_at)
   scope :total, ->(estimator) {where(user_id: estimator.id)}
   scope :initial, ->(estimator) { total(estimator).where(initial: true)}
   scope :initial_not_estimated_yet, ->(estimator) { initial(estimator).where(value: nil)}

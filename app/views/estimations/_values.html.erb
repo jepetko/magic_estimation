@@ -1,0 +1,10 @@
+<% if @item.estimations.count > 0 %>
+    <div>
+    <h5>Estimations so far:</h5>
+        <% @item.estimations.each do |e| %>
+            <% css_class = e.initial? ? 'label label-primary' : 'label label-default' %>
+            <span class="<%=css_class%>"><%=e.value%></span> by <%=e.estimator.name %>
+          <br>
+        <% end %>
+    </div>
+<% end %>

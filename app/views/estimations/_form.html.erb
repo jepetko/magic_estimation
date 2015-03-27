@@ -7,6 +7,7 @@
     <%= @item.description %>
   </div>
   <div class="panel-footer">
+    <%= render 'values' %>
     <%= form_tag estimations_pass_backlog_path(@item.backlog), method: :post do %>
         <% Point.all.each do |point| %>
             <%=radio_button_tag 'value', point.value, false, disabled: false%>
@@ -16,7 +17,8 @@
         <% if add_pos_field == true %>
             <%= hidden_field_tag 'pos', params[:pos] || 1 %>
         <% end %>
-        <%= submit_tag 'Re-Estimate', class: 'btn btn-primary' %>
+        <br>
+        <%= submit_tag 'Estimate', class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
