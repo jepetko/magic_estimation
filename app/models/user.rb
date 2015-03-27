@@ -2,14 +2,19 @@ class User < ActiveRecord::Base
 
   before_save :set_default_role
 
-  has_secure_password
-  validates :name, :password, presence: true
+  has_secure_password validations: false
+  validates :name, presence: true, uniqueness: true
+  validates :password, presence: true, on: :create
 
   has_many :estimations
   has_many :items, through: :estimations
 
   def admin?
     self.role == 'admin'
+  end
+
+  def member?
+    self.role == 'member'
   end
 
   private
