@@ -1,0 +1,6 @@
+<% percentage = percentage(@estimated,@total) %>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="<%=@estimated%>" aria-valuemin="0" aria-valuemax="<%=@total%>" style="min-width: 2em;width:<%=percentage%>">
+    <%=percentage%>
+  </div>
+</div>

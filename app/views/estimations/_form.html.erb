@@ -1,0 +1,22 @@
+<% add_pos_field ||= false %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= @item.name %>
+  </div>
+  <div class="panel-body">
+    <%= @item.description %>
+  </div>
+  <div class="panel-footer">
+    <%= form_tag estimations_pass_backlog_path(@item.backlog), method: :post do %>
+        <% Point.all.each do |point| %>
+            <%=radio_button_tag 'value', point.value, false, disabled: false%>
+            <%=label_tag point.value %>
+        <% end %>
+        <%= hidden_field_tag 'item_id', @item.id %>
+        <% if add_pos_field == true %>
+            <%= hidden_field_tag 'pos', params[:pos] || 1 %>
+        <% end %>
+        <%= submit_tag 'Re-Estimate', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
