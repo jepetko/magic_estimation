@@ -1,6 +1,8 @@
 <%= render 'shared/title', title: "Showing <b>#{@backlog.name}</b> including <b>#{@backlog.items.count}</b> items".html_safe %>
 <%= render 'backlogs/backlog', backlog: @backlog, buttons: {edit: true, destroy: true} %>
-<%= render 'items/form' %>
+<% if current_user.admin? %>
+    <%= render 'items/form' %>
+<% end %>
 <div class="container-fluid">
     <% i = 0 %>
     <% @backlog.items.each do |item| %>
@@ -10,4 +12,6 @@
         <% i += 1%>
     <% end %>
 </div>
-<%= render 'items/assign_item_to_user' %>
+<% if current_user.admin? %>
+    <%= render 'items/assign_item_to_user' %>
+<% end %>
