@@ -31,13 +31,15 @@
                       <% end %>
                     </li>
                 <% end %>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to new_backlog_path do %>
-                      <span class="glyphicon glyphicon-plus"></span>
-                      Backlog
-                  <% end %>
-                </li>
+                <% if current_user.admin? %>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to new_backlog_path do %>
+                          <span class="glyphicon glyphicon-plus"></span>
+                          Backlog
+                      <% end %>
+                    </li>
+                <% end %>
               </ul>
             </li>
           </ul>
