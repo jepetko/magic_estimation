@@ -48,6 +48,28 @@ class Item < ActiveRecord::Base
     where(backlog: backlog).where(id: estimations).order(id: :asc)
   }
 
+  def assign_to_initial_estimator(user_id)
+    estimation = Estimation.where.not(user_id: user_id, value: nil).where(item: self, initial: true).first
+    if !estimation.nil?
+      raise "This item cannot be re-assigned because its already estimated initially with #{estimation.value} points."
+    else
+      begin
+        ActiveRecord::Base.transaction do
+          estimation = Estimation.find_by(user_id: user_id, item: self) || Estimation.new(user_id: user_id, item: self)
+          estimation.initial = true
+          if !estimation.save
+            raise estimation.errors.full_messages.join(', ')
+          end
+          # set initial = false for the previous assignees
+          Estimation.where.not(user_id: user_id).where(item: self).update_all(initial: false)
+        end
+      rescue Exception => e
+        raise e.message
+      end
+    end
+    estimation
+  end
+
   def initial_estimator
     # note: there should be only one estimator with initial = true for an item!
     self.the_initial_estimator ||= self.estimators.where('estimations.initial' => true).first

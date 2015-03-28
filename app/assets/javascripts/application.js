@@ -47,7 +47,7 @@ $(document).ready(function() {
                 ).done(function(msg) {
                     if(msg && msg.state) {
                         if(msg.state === 'error') {
-                            alert(msg.messages.join(','));
+                            alert(msg.messages);
                         } else {
                             location.reload();
                         }

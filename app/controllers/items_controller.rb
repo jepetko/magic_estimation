@@ -29,30 +29,14 @@ class ItemsController < ApplicationController
 
   def assign
     item = Item.find(params[:id])
-    estimation = Estimation.where.not(user_id: params[:user_id], value: nil).where(item: item, initial: true).first
     hash = {}
-    if !estimation.nil?
+    begin
+      estimation = item.assign_to_initial_estimator params[:user_id]
+      hash[:state] = :ok
+      hash[:obj] = estimation
+    rescue Exception => e
       hash[:state] = :error
-      hash[:messages] = ["This item cannot be re-assigned because its already estimated initially with #{estimation.value} points."]
-    else
-      begin
-        ActiveRecord::Base.transaction do
-          own_estimation = Estimation.find_by(user_id: params[:user_id], item: item) || Estimation.new(user_id: params[:user_id], item: item)
-          own_estimation.initial = true
-          if own_estimation.save
-            hash[:state] = :ok
-            hash[:obj] = own_estimation
-          else
-            hash[:state] = :error
-            hash[:messages] = own_estimation.errors.full_messages
-          end
-          # set initial = false for the previous assignees
-          Estimation.where.not(user_id: params[:user_id]).where(item: item).update_all(initial: false)
-        end
-      rescue Exception => e
-        hash[:state] = :error
-        hash[:messages] = [e.message]
-      end
+      hash[:messages] = e.message
     end
     respond_to do |format|
       format.json do
