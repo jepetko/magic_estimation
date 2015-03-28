@@ -49,6 +49,7 @@ class Item < ActiveRecord::Base
   }
 
   def assign_to_initial_estimator(user_id)
+    user_id = user_id.id if user_id.instance_of?(User)
     estimation = Estimation.where.not(user_id: user_id, value: nil).where(item: self, initial: true).first
     if !estimation.nil?
       raise "This item cannot be re-assigned because its already estimated initially with #{estimation.value} points."
