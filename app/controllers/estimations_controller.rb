@@ -48,9 +48,8 @@ class EstimationsController < ApplicationController
 
   def pass
     item = Item.find(params[:item_id])
-    estimation = Estimation.find_by(user_id: current_user.id, item: item, value: nil) || Estimation.new(user_id: current_user.id, item: item,initial: false)
-    estimation.value = params[:value]
-    if estimation.save!
+    estimation = item.estimate(current_user, params[:value])
+    if estimation
       flash.now[:notice] = "Your estimation of #{estimation.value} story points for item #{item.name} has been submitted."
     else
       flash.now[:error] = 'Something went wrong.'

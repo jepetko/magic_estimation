@@ -71,6 +71,14 @@ class Item < ActiveRecord::Base
     estimation
   end
 
+  def estimate(user_id, value)
+    user_id = user_id.id if user_id.instance_of?(User)
+    estimation = Estimation.find_by(user_id: user_id, item: self, value: nil) || Estimation.new(user_id: user_id, item: self,initial: false)
+    estimation.value = value
+    estimation.save!
+    estimation
+  end
+
   def initial_estimator
     # note: there should be only one estimator with initial = true for an item!
     self.the_initial_estimator ||= self.estimators.where('estimations.initial' => true).first
