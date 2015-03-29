@@ -43,6 +43,10 @@
               </ul>
             </li>
           </ul>
+          <form class="navbar-form navbar-left">
+            <%= link_to 'Dashboard', root_path, class: 'btn btn-primary' %>
+            <%= link_to 'Estimation room', estimations_path, class: 'btn btn-primary' %>
+          </form>
           <form class="navbar-form navbar-right">
             <%= link_to "#{current_user.name}'s profile", user_path(current_user), class: 'btn btn-primary' %>
             <%= link_to 'Logout', logout_path, class: 'btn btn-danger btn-small' %>

@@ -2,6 +2,9 @@ class EstimationsController < ApplicationController
 
   before_action :require_user
 
+  def index
+  end
+
   def initial
     backlog = Backlog.find(params[:id])
     items = Item.for_backlog_and_estimator_to_be_estimated_initially(backlog,current_user)

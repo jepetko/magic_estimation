@@ -1,0 +1,43 @@
+<% i = 0 %>
+<div class="container-fluid">
+  <% Backlog.all.each do |backlog| %>
+      <%= render inline: '<div class="row">' if i%2 == 0 %>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%=backlog.name%>
+          </div>
+          <div class="panel-body">
+            <dl class="dl-horizontal">
+              <dt>Total items:</dt>
+              <dd><span class="label label-default"><%=backlog.items.count%></span></dd>
+              <dt>Items to be estimated:</dt>
+              <dd><span class="label label-primary"><%=Item.for_backlog_and_estimator_not_estimated_yet(backlog,user).size%></span></dd>
+              <dt>Items already estimated:</dt>
+              <dd><span class="label label-success"><%=Item.for_backlog_and_estimator_already_estimated(backlog,user).size%></span></dd>
+            </dl>
+          </div>
+
+          <% if current_user == user %>
+              <% size_items_to_be_estimated_initially = 0;
+                 size_items_to_be_estimated_next = 0;
+                 size_items_to_be_possibly_reestimated = 0;%>
+              <div class="panel-footer">
+                <% if backlog.items.any_to_be_estimated_initially?(backlog, user) {|size| size_items_to_be_estimated_initially = size}%>
+                    <%= link_to "Estimate initially (#{size_items_to_be_estimated_initially})", estimations_initial_backlog_path(backlog), class: 'btn btn-danger' %>
+                <% end %>
+                <% if backlog.items.any_to_be_estimated_next?(backlog, user) {|size| size_items_to_be_estimated_next = size}%>
+                    <%= link_to "Estimate as next (#{size_items_to_be_estimated_next})", estimations_next_backlog_path(backlog), class: 'btn btn-primary' %>
+                <% end %>
+                <% if backlog.items.any_to_be_possibly_reestimated?(backlog) {|size| size_items_to_be_possibly_reestimated = size}%>
+                    <%= link_to "Re-estimate (#{size_items_to_be_possibly_reestimated})", estimations_reestimate_backlog_path(backlog), class: 'btn btn-default' %>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
+
+      </div>
+      <%= render inline: '</div>' if i%2 == 1 %>
+      <% i += 1 %>
+  <% end %>
+</div>
