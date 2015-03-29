@@ -6,19 +6,46 @@
   <div class="panel-body">
     <%= @item.description %>
   </div>
-  <div class="panel-footer">
+  <div class="panel-body">
     <%= render 'values' %>
+  </div>
+  <div class="panel-footer">
     <%= form_tag estimations_pass_backlog_path(@item.backlog), method: :post do %>
-        <% Point.all.each do |point| %>
-            <%=radio_button_tag 'value', point.value, false, disabled: false%>
-            <%=label_tag point.value %>
-        <% end %>
+        <div class="well">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-1"></div>
+            <% points = Point.all.collect(&:value) %>
+            <% points.each do |point| %>
+                <% percent = top_percent_for_value(points, point) %>
+                <div class="col-md-1">
+                    <%=radio_button_tag 'value', point, false, disabled: false, id: "value_#{point}", class: 'point-radio'%>
+                    <%=label_tag "value_#{point}", class: 'point-label' do%>
+                        <div class="point-indicator" style="top:<%=percent%>">
+                            <%=point%>
+                        </div>
+                    <% end %>
+                </div>
+            <% end %>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row point-legend">
+            <div class="col-md-6">
+                <span class="glyphicon glyphicon-arrow-left"></span> simple, low complexity
+            </div>
+            <div class="col-md-6">
+              high complexity, unclear <span class="glyphicon glyphicon-arrow-right"></span>
+            </div>
+          </div>
+        </div>
+        </div>
         <%= hidden_field_tag 'item_id', @item.id %>
         <% if add_pos_field == true %>
             <%= hidden_field_tag 'pos', params[:pos] || 1 %>
         <% end %>
         <br>
-        <%= submit_tag 'Estimate', class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', user_path(current_user), class: 'btn btn-default' %>
+        <%= submit_tag 'Estimate', class: 'btn btn-primary right-aligned' %>
     <% end %>
   </div>
 </div>

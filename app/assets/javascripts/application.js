@@ -57,4 +57,11 @@ $(document).ready(function() {
            return false;
         });
     });
+
+    $('.point-indicator').click(function() {
+        $('.point-indicator').each(function(idx, element) {
+            $(element).removeClass('point-indicator-selected');
+        });
+        $(this).addClass('point-indicator-selected');
+    });
 });
