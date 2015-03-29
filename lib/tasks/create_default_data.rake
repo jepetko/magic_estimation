@@ -18,14 +18,14 @@ namespace :db do
 
     admin = User.new(name: 'boss', password: 'boss', password_confirmation: 'boss', role: 'admin')
     admin.save!
-    puts 'User admin created.'
+    puts 'User boss (role: admin) created.'
 
     bob = User.new(name: 'bob', password: 'bob', password_confirmation: 'bob', role: 'member')
     bob.save!
-    puts 'User bob created.'
+    puts 'User bob (role: member) created.'
 
     jeff = User.new(name: 'jeff', password: 'jeff', password_confirmation: 'jeff', role: 'member')
     jeff.save!
-    puts 'User jeff created.'
+    puts 'User jeff (role: member) created.'
   end
 end
