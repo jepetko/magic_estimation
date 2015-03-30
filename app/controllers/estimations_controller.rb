@@ -14,7 +14,7 @@ class EstimationsController < ApplicationController
       @total = items.size + @estimated
     else
       flash[:error] = 'There are no items to be estimated initially.'
-      redirect_to root_path
+      redirect_to estimations_path
     end
   end
 
@@ -26,8 +26,8 @@ class EstimationsController < ApplicationController
       @estimated = Item.for_backlog_and_estimator_already_estimated(backlog, current_user).size
       @total = items.size + @estimated
     else
-      flash[:error] = 'There are no items to be estimated as next.'
-      redirect_to root_path
+      flash[:notice] = 'There are no items to be estimated as next.'
+      redirect_to estimations_path
     end
   end
 
@@ -44,8 +44,8 @@ class EstimationsController < ApplicationController
         @item = items[@estimated]
       end
     else
-      flash[:error] = 'There are no items to be re-estimated'
-      redirect_to root_path
+      flash[:notice] = 'There are no items to be re-estimated'
+      redirect_to estimations_path
     end
   end
 

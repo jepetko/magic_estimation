@@ -1,1 +1,7 @@
-<%= render 'estimations/overview', user: current_user %>
+<% if current_user.member? %>
+    <%= render 'estimations/overview', user: current_user %>
+<% end %>
+
+<% if current_user.admin? %>
+    <%= render 'estimations/dashboard' %>
+<% end %>
