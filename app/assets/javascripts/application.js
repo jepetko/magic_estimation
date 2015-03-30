@@ -65,4 +65,13 @@ $(document).ready(function() {
         });
         $(this).addClass('point-indicator-selected');
     });
+
+    $('.show-detail-estimations').off().click(function() {
+        var link = this;
+        $.ajax( { url: link.href })
+            .done(function(msg) {
+                $(link).next().html(msg);
+            });
+        return false;
+    });
 });

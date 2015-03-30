@@ -1,0 +1,4 @@
+<% @estimations.each do |estimation| %>
+    <b><%=estimation.value%></b> by <%=link_to estimation.name, user_path(estimation.user_id)%>
+    <br>
+<% end %>

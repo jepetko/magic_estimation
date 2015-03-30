@@ -49,6 +49,8 @@
                   <tr>
                     <td>
                       <%= item.name %>
+                      <%= link_to 'Show details', backlog_item_estimations_path(backlog,item), class: 'show-detail-estimations' %>
+                      <div></div>
                     </td>
                     <td class="text-right-aligned">
                       <%= item.s %>

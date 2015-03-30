@@ -3,6 +3,13 @@ class EstimationsController < ApplicationController
   before_action :require_user
 
   def index
+    if params[:backlog_id] && params[:item_id]
+      @estimations = Estimation.joins(:item).joins(:estimator).where(:'items.backlog_id'=> params[:backlog_id], :'estimations.item_id' => params[:item_id]).select('estimations.value', 'users.name', 'users.id user_id')
+      respond_to do |format|
+        format.html { render partial: 'estimations/value_per_user'}
+        format.json { render json: @estimations}
+      end
+    end
   end
 
   def initial

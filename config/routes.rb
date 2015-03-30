@@ -66,6 +66,7 @@ MagicEstimation::Application.routes.draw do
       member do
         post :assign, to: :assign
       end
+      resources :estimations, only: [:index]
     end
     member do
       get '/estimations/initial', to: 'estimations#initial'
