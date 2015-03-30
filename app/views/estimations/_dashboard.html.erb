@@ -21,7 +21,19 @@
               <dd>
                 <span class="label label-primary"><%= Item.for_backlog_not_sufficient_estimated(backlog).size %></span>
               </dd>
+              <dt>&nbsp;</dt>
+              <dd></dd>
+              <dt>Top 3 with the highest deviation:</dt>
+              <dd></dd>
             </dl>
+            <table class="table table-bordered">
+                <% j = 0 %>
+                <% Item.standard_deviations(backlog).each do |item,deviation| %>
+                    <% break if j == 3 %>
+                    <tr><td><%=item.name%></td><td class="text-right-aligned"><%=deviation%></td></tr>
+                    <% j+= 1 %>
+                <% end %>
+            </table>
           </div>
           <div class="panel-body">
             <table class="table table-striped table-hover">

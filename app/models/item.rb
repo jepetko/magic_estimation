@@ -95,6 +95,23 @@ class Item < ActiveRecord::Base
     self.the_initial_estimator ||= self.estimators.where('estimations.initial' => true).first
   end
 
+  def self.standard_deviations(backlog)
+    statistics = self.for_backlog_statistics(backlog)
+    deviations = {}
+    statistics.each do |stat|
+      next unless stat.c
+      next unless stat.s
+      avg = stat.s/stat.c
+      values = Estimation.where(item_id: stat.id).pluck(:value)
+      sum = 0
+      values.each do |val|
+        sum += (val-avg)**2
+      end
+      deviations[stat] = ((sum/stat.c) ** 0.5).round(2)
+    end
+    deviations.sort_by {|key,value| value}.reverse
+  end
+
   def self.any_to_be_estimated_initially?(backlog,user,&block)
     size = Item.for_backlog_and_estimator_to_be_estimated_initially(backlog,user).size
     if block_given?
