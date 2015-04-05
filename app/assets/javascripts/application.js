@@ -68,10 +68,16 @@ $(document).ready(function() {
 
     $('.show-detail-estimations').off().click(function() {
         var link = this;
-        $.ajax( { url: link.href })
-            .done(function(msg) {
-                $(link).next().html(msg);
-            });
+        var div = $(link).next();
+        if(div.is(':visible')) {
+            div.hide();
+        } else {
+            $.ajax( { url: link.href })
+                .done(function(msg) {
+                    div.html(msg);
+                });
+            div.show();
+        }
         return false;
     });
 });
