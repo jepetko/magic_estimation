@@ -70,12 +70,14 @@ $(document).ready(function() {
         var link = this;
         var div = $(link).next();
         if(div.is(':visible')) {
+            $(link).html('Show details');
             div.hide();
         } else {
             $.ajax( { url: link.href })
                 .done(function(msg) {
                     div.html(msg);
                 });
+            $(link).html('Hide details');
             div.show();
         }
         return false;
