@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :estimations
   has_many :items, through: :estimations
 
+  scope :members, -> { where(role: 'member')}
+
   def admin?
     self.role == 'admin'
   end

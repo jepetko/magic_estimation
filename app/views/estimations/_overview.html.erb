@@ -18,7 +18,7 @@
             </dl>
           </div>
 
-          <% if current_user == user %>
+          <% if current_user?(user) %>
               <% size_items_to_be_estimated_initially = 0;
                  size_items_to_be_estimated_next = 0;
                  size_items_to_be_possibly_reestimated = 0;%>
