@@ -18,6 +18,10 @@ http://campey.blogspot.co.at/2010/09/magic-estimation.html
 * bob/bob (member)
 * jeff/jeff (member)
 
+# link
+
+https://leanetic-magic-estimation.herokuapp.com/
+
 # deployment procedure (heroku)
 
 ## create the application
