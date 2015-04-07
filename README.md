@@ -22,12 +22,13 @@ http://campey.blogspot.co.at/2010/09/magic-estimation.html
 
 ## create the application
 
+```
 katarina@leanetic:~/RubymineProjects/magic_estimation$ heroku create leanetic-magic-estimation --stack cedar --buildpack https://github.com/heroku/heroku-buildpack-ruby.git
 Creating leanetic-magic-estimation... done, stack is cedar-10
 Buildpack set. Next release on leanetic-magic-estimation will use https://github.com/heroku/heroku-buildpack-ruby.git.
 https://leanetic-magic-estimation.herokuapp.com/ | https://git.heroku.com/leanetic-magic-estimation.git
 Git remote heroku added
-
+```
 
 ## deploy
 
