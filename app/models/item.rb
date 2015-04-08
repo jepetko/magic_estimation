@@ -46,17 +46,17 @@ class Item < ActiveRecord::Base
 
 
   scope :for_backlog_to_be_reestimated, ->(backlog) {
-    estimations = Estimation.select('items.id').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.item_id').having('count(estimations.id) >= 2').collect(&:id)
+    estimations =  Estimation.select('estimations.id', 'count(estimations.id) c').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.id').having('count(estimations.id) >= 2').collect(&:id)
     where(backlog: backlog).where(id: estimations).order(id: :asc)
   }
 
   scope :for_backlog_not_sufficient_estimated, ->(backlog) {
-    estimations = Estimation.select('items.id').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.item_id').having('count(estimations.id) = 1').collect(&:id)
+    estimations =  Estimation.select('estimations.id', 'count(estimations.id) c').joins(:item).where(:'items.backlog_id' => backlog.id).group('estimations.id').having('count(estimations.id) = 1').collect(&:id)
     where(backlog: backlog).where(id: estimations).order(id: :asc)
   }
 
   scope :for_backlog_statistics, ->(backlog) {
-    for_backlog(backlog).select('items.id, name, SUM(value) s,COUNT(*) c').group('items.id', :name).order('items.id')
+    for_backlog(backlog).select('items.id, name, SUM(value) s,COUNT(estimations.id) c').group('items.id', :name).order('items.id')
   }
 
   def assign_to_initial_estimator(user_id)
