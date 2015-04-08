@@ -22,6 +22,16 @@ http://campey.blogspot.co.at/2010/09/magic-estimation.html
 
 https://leanetic-magic-estimation.herokuapp.com/
 
+# features by picture
+
+## boss's dashboard
+
+![dashboard](https://raw.githubusercontent.com/jepetko/magic_estimation/master/doc/dashboard.png)
+
+## member's estimation room
+
+![estimation room]()
+
 # deployment procedure (heroku)
 
 ## create the application
