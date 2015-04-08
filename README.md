@@ -11,6 +11,7 @@ http://campey.blogspot.co.at/2010/09/magic-estimation.html
 * every item is assigned to a team member
 * the team member needs to estimate the assigned item initially
 * another team members add their estimations to the item
+* product owner checks the results in the dashboard
 
 # log-ins
 
