@@ -30,7 +30,7 @@ https://leanetic-magic-estimation.herokuapp.com/
 
 ## member's estimation room
 
-![estimation room]()
+![estimation room](https://raw.githubusercontent.com/jepetko/magic_estimation/master/doc/estimation_room.png)
 
 # deployment procedure (heroku)
 
